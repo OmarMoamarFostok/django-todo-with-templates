@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            
+        }
+        button:hover {
+            cursor: pointer
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .link {
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Account</h2>
+            <form method="post">
+                {% csrf_token %}
+
+                <div>
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div style="color: red;">{{ form.username.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div style="color: red;">{{ form.password1.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div>
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div style="color: red;">{{ form.password2.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit">Register</button>
+            </form>
+        <a class="link" href="{% url 'login' %}">Already have an account? Login</a>
+    </div>
+</body>
+</html>

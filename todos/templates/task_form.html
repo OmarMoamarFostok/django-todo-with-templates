@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if form.instance.pk %}Edit Task{% else %}Add Task{% endif %}</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        input, textarea, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>{% if form.instance.pk %}Edit Task{% else %}Add Task{% endif %}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{% if form.instance.pk %}Update{% else %}Create{% endif %}</button>
+        </form>
+        <a href="{% url 'task_list' %}">← Back to task list</a>
+    </div>
+</body>
+</html>

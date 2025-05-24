@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Tasks</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background: #e9f0f5;
+            padding: 40px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task {
+            background: white;
+            padding: 15px 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+        a.btn {
+            text-decoration: none;
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .logout {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Welcome, {{ user.username }}</h2>
+        <a class="btn logout" href="{% url 'logout' %}">Logout</a>
+    </div>
+
+    <h3>Your Tasks</h3>
+    <div>
+
+        <a class="btn" href="{% url 'task_create' %}">+ Add New Task</a>
+        
+    </div>
+    <br>
+    {% for task in tasks %}
+        <div class="task">
+            <div>
+                <strong>{{ task.title }}</strong><br>
+                {{ task.description }}<br>
+                {% if task.is_completed %}
+                    <small style="color: green;">Completed</small>
+                {% else %}
+                    <small style="color: orange;">In Progress</small>
+                {% endif %}
+            </div>
+            <div>
+                <a class="btn" href="{% url 'task_update' task.id %}">Edit</a>
+                <a class="btn" href="{% url 'task_delete' task.id %}">Delete</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No tasks yet.</p>
+    {% endfor %}
+</body>
+</html>
